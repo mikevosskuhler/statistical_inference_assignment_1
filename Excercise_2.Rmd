@@ -1,0 +1,36 @@
+---
+title: "Excercise 2"
+author: "Mike Vosskuhler"
+date: "August 31, 2018"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(magrittr)
+```
+
+# Basic inference  
+
+## Load the data and apply EDA  
+
+```{r}
+ToothGrowth <- datasets::ToothGrowth
+head(ToothGrowth)
+tail(ToothGrowth)
+```
+## provide a Basic summary  
+```{r}
+summary(ToothGrowth)
+tapply(ToothGrowth$len, list(ToothGrowth$supp, ToothGrowth$dose), mean)
+```
+## Use Hypothesis tests to compare tooth growth by supp and dose  
+```{r}
+t.test(len~supp, data = ToothGrowth)
+t.test(len~dose, data = ToothGrowth[(ToothGrowth$dose==0.5|ToothGrowth$dose==1),])
+t.test(len~dose, data = ToothGrowth[(ToothGrowth$dose==2|ToothGrowth$dose==1),])
+```
+## Conclusion  
+We found significant differences in tooth growth between the different dosage levels but not for the different supps. For this analysis we used two tailled confidence intervals and a significance level alpha of 0.05. 
+
